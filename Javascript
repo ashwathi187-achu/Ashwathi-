@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Code Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        header {
+            background: #2d2d30;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3e3e42;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: #007acc;
+            font-size: 24px;
+        }
+        
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        
+        .search-box {
+            background: #3e3e42;
+            border-radius: 4px;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: #d4d4d4;
+            outline: none;
+            width: 300px;
+        }
+        
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: #252526;
+            border-right: 1px solid #3e3e42;
+            padding: 15px 0;
+            overflow-y: auto;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-title {
+            padding: 5px 15px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #858585;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .sidebar-item {
+            padding: 6px 15px 6px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .sidebar-item:hover {
+            background: #2a2d2e;
+        }
+        
+        .sidebar-item.active {
+            background: #37373d;
+        }
+        
+        .sidebar-item i {
+            color: #8595a2;
+            font-size: 14px;
+        }
+        
+        .sidebar-item.active i {
+            color: #007acc;
+        }
+        
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .tabs {
+            background: #2d2d30;
+            display: flex;
+            border-bottom: 1px solid #3e3e42;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            border-right: 1px solid #1e1e1e;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            background: #1e1e1e;
+        }
+        
+        .tab i {
+            font-size: 12px;
+            color: #8595a2;
+        }
+        
+        .tab.active i {
+            color: #007acc;
+        }
+        
+        .close-tab {
+            margin-left: 8px;
+            padding: 2px;
+            border-radius: 2px;
+        }
+        
+        .close-tab:hover {
+            background: #3e3e42;
+        }
+        
+        .editor {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #1e1e1e;
+        }
+        
+        .code-header {
+            margin-bottom: 15px;
+        }
+        
+        .code-header h2 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .code-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #858585;
+            margin-bottom: 15px;
+        }
+        
+        .code-area {
+            background: #2d2d30;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        
+        .code-line {
+            display: flex;
+            margin-bottom: 4px;
+        }
+        
+        .line-number {
+            color: #858585;
+            min-width: 40px;
+            text-align: right;
+            padding-right: 15px;
+            user-select: none;
+        }
+        
+        .line-code {
+            flex: 1;
+            white-space: pre-wrap;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .function {
+            color: #dcdcaa;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .console {
+            background: #2d2d30;
+            border-top: 1px solid #3e3e42;
+            height: 150px;
+            padding: 10px 15px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            overflow-y: auto;
+        }
+        
+        .console-line {
+            margin-bottom: 5px;
+        }
+        
+        .console-command {
+            color: #ce9178;
+        }
+        
+        .console-output {
+            color: #d4d4d4;
+        }
+        
+        .status-bar {
+            background: #007acc;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-item i {
+            font-size: 11px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            
+            .sidebar-item span {
+                display: none;
+            }
+            
+            .sidebar-title {
+                display: none;
+            }
+            
+            .sidebar-item {
+                padding: 15px;
+                justify-content: center;
+            }
+            
+            .search-box input {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fab fa-js-square"></i>
+            <h1>JavaScript Code Manager</h1>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search files...">
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">
+                    <span>Explorer</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="sidebar-item active">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Project Files</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-code-branch"></i>
+                    <span>Source Control</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">
+                    <span>Project Files</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fab fa-js"></i>
+                    <span>app.js</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fab fa-js"></i>
+                    <span>utils.js</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fab fa-js"></i>
+                    <span>api.js</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-file-code"></i>
+                    <span>index.html</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-file-code"></i>
+                    <span>styles.css</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-folder"></i>
+                    <span>node_modules</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-folder"></i>
+                    <span>src</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="editor-container">
+            <div class="tabs">
+                <div class="tab active">
+                    <i class="fab fa-js"></i>
+                    <span>app.js</span>
+                    <i class="fas fa-times close-tab"></i>
+                </div>
+                <div class="tab">
+                    <i class="fab fa-js"></i>
+                    <span>utils.js</span>
+                    <i class="fas fa-times close-tab"></i>
+                </div>
+                <div class="tab">
+                    <i class="fab fa-js"></i>
+                    <span>api.js</span>
+                    <i class="fas fa-times close-tab"></i>
+                </div>
+            </div>
+            
+            <div class="editor">
+                <div class="code-header">
+                    <h2>app.js</h2>
+                    <div class="code-meta">
+                        <span>JavaScript</span>
+                        <span>UTF-8</span>
+                        <span>100 lines</span>
+                    </div>
+                </div>
+                
+                <div class="code-area">
+                    <div class="code-line">
+                        <span class="line-number">1</span>
+                        <span class="line-code"><span class="comment">// Main application file</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">2</span>
+                        <span class="line-code"><span class="keyword">import</span> { utils } <span class="keyword">from</span> <span class="string">'./utils.js'</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">3</span>
+                        <span class="line-code"><span class="keyword">import</span> { api } <span class="keyword">from</span> <span class="string">'./api.js'</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">4</span>
+                        <span class="line-code"></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">5</span>
+                        <span class="line-code"><span class="keyword">class</span> <span class="function">App</span> {</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">6</span>
+                        <span class="line-code">  <span class="function">constructor</span>() {</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">7</span>
+                        <span class="line-code">    <span class="keyword">this</span>.name = <span class="string">'JavaScript Code Manager'</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">8</span>
+                        <span class="line-code">    <span class="keyword">this</span>.version = <span class="string">'1.0.0'</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">9</span>
+                        <span class="line-code">  }</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">10</span>
+                        <span class="line-code"></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">11</span>
+                        <span class="line-code">  <span class="function">init</span>() {</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">12</span>
+                        <span class="line-code">    <span class="keyword">this</span>.<span class="function">loadFiles</span>();</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">13</span>
+                        <span class="line-code">    <span class="keyword">this</span>.<span class="function">setupEventListeners</span>();</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">14</span>
+                        <span class="line-code">    <span class="keyword">this</span>.<span class="function">renderUI</span>();</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">15</span>
+                        <span class="line-code">  }</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">16</span>
+                        <span class="line-code"></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">17</span>
+                        <span class="line-code">  <span class="function">loadFiles</span>() {</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">18</span>
+                        <span class="line-code">    <span class="comment">// Load project files from storage</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">19</span>
+                        <span class="line-code">    <span class="keyword">const</span> files = utils.<span class="function">getFiles</span>();</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">20</span>
+                        <span class="line-code">    <span class="keyword">this</span>.files = files;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">21</span>
+                        <span class="line-code">  }</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">22</span>
+                        <span class="line-code">}</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">23</span>
+                        <span class="line-code"></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">24</span>
+                        <span class="line-code"><span class="comment">// Initialize the application</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">25</span>
+                        <span class="line-code"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="function">App</span>();</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-number">26</span>
+                        <span class="line-code">app.<span class="function">init</span>();</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="console">
+                <div class="console-line">
+                    <span class="console-command">> </span>
+                    <span class="console-output">Application initialized successfully</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-command">> </span>
+                    <span class="console-output">Loaded 5 JavaScript files</span>
+                </div>
+                <div class="console-line">
+                    <span class="console-command">> </span>
+                    <span class="console-output">Ready to execute code</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status-bar">
+        <div class="status-item">
+            <i class="fas fa-branch"></i>
+            <span>main</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Prettier</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-bolt"></i>
+            <span>JavaScript</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-globe"></i>
+            <span>UTF-8</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-laptop-code"></i>
+            <span>Line 26, Column 15</span>
+        </div>
+    </div>
+
+    <script>
+        // Simple functionality for demonstration
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update editor content based on active tab
+                const fileName = tab.querySelector('span').textContent;
+                document.querySelector('.code-header h2').textContent = fileName;
+            });
+        });
+        
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+        
+        // Close tab functionality
+        document.querySelectorAll('.close-tab').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const tab = closeBtn.parentElement;
+                tab.remove();
+            });
+        });
+    </script>
+</body>
+</html>
