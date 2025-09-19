@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern CSS Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--success);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background: transparent;
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .showcase {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease;
+        }
+
+        .showcase h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            color: var(--success);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .animation-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            margin: 40px 0;
+        }
+
+        .animated-element {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(247, 37, 133, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .grid { grid-template-columns: 1fr; }
+            .showcase { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modern CSS Showcase</h1>
+            <p class="subtitle">Exploring the power of modern CSS features</p>
+            <a href="#showcase" class="btn">Explore Features</a>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Flexbox & Grid</h3>
+                <p>Modern layout techniques that make responsive design easier than ever.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-running"></i>
+                <h3>Animations</h3>
+                <p>Smooth transitions and keyframe animations for engaging user experiences.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-magic"></i>
+                <h3>Visual Effects</h3>
+                <p>Backdrop filters, shadows, and gradients for stunning visual design.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+
+        <div id="showcase" class="showcase">
+            <h2>CSS Features Demonstration</h2>
+            
+            <div class="animation-demo">
+                <div class="animated-element"></div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>CSS Variables</h3>
+                    <p>Use custom properties for consistent theming and easier maintenance.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>Backdrop Filters</h3>
+                    <p>Apply blur effects to elements behind the current element for glassmorphism effects.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>Flexbox Layout</h3>
+                    <p>Efficient way to lay out, align and distribute space among items in a container.</p>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>CSS Grid</h3>
+                    <p>Two-dimensional layout system designed for responsive web design.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>Transitions</h3>
+                    <p>Gradual changes between states for smooth user interactions.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>Animations</h3>
+                    <p>Keyframe-based animations for engaging user experiences.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Created with modern CSS features | &copy; 2023 CSS Showcase</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add interactive animation to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simple animation for showcase section when scrolled into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideUp 1s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.feature').forEach(feature => {
+            feature.style.opacity = '0';
+            observer.observe(feature);
+        });
+    </script>
+</body>
+</html>
