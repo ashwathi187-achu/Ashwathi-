@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Modern Page</title>
+  <meta name="description" content="A simple modern single-file HTML template (responsive + accessible)" />
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --card: #f7f7fb;
+      --text: #0f1724;
+      --muted: #55607a;
+      --accent: #2563eb;
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(20,30,60,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --card: #0f1724;
+      --text: #e6eef8;
+      --muted: #98a0b6;
+      --accent: #4f8cff;
+      --shadow: 0 6px 30px rgba(2,6,23,0.7);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), var(--card));
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:24px;
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:20px;}
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#6fb0ff);
+      display:inline-grid;place-items:center;color:white;font-weight:700;box-shadow:var(--shadow);
+    }
+    nav a{
+      margin-left:14px;
+      color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;
+    }
+    .btn{
+      padding:8px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:600;cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:20px;
+      align-items:center;
+      margin-bottom:28px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.5),transparent);
+      padding:22px;border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero h1{font-size:28px;margin:0 0 8px}
+    .hero p{margin:0;color:var(--muted)}
+    .hero .actions{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+      margin-bottom:28px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:12px;padding:18px;box-shadow:var(--shadow);
+    }
+    .card h3{margin-top:0;margin-bottom:8px}
+    .muted{color:var(--muted);font-size:14px}
+
+    form .row{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+    label{font-weight:600;font-size:13px}
+    input,textarea,select{
+      padding:10px;border-radius:10px;border:1px solid rgba(20,30,60,0.06);
+      background:transparent;color:var(--text);font-size:14px;
+    }
+    textarea{min-height:110px;resize:vertical}
+    .flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+    footer{margin-top:28px;padding-top:14px;border-top:1px solid rgba(20,30,60,0.06);color:var(--muted);font-size:13px;text-align:center}
+
+    /* small screens tweaks */
+    @media(min-width:760px){
+      .hero{grid-template-columns: 1fr 380px}
+      .hero h1{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="page">
+    <header>
+      <a class="brand" href="#" aria-label="Homepage">
+        <div class="logo" aria-hidden="true">A</div>
+        <div>
+          <strong>Acme Studio</strong><div class="muted" style="font-size:12px">Simple, modern templates</div>
+        </div>
+      </a>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <nav aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button class="btn" id="themeToggle" aria-pressed="false" title="Toggle light / dark">Toggle theme</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <h1 id="hero-title">A clean single-file HTML template</h1>
+          <p class="muted">Starter template with responsive layout, accessible markup, and small JS enhancements — great for demos, prototypes, or learning HTML/CSS.</p>
+
+          <div class="actions">
+            <a class="btn" href="#contact">Get in touch</a>
+            <a href="#" style="padding:8px 14px;border-radius:10px;border:1px solid rgba(20,30,60,0.06);text-decoration:none;color:var(--text);font-weight:600">View docs</a>
+          </div>
+
+          <div style="margin-top:16px" class="muted">Built with semantic HTML and plain CSS — no frameworks required.</div>
+        </div>
+
+        <aside class="card" aria-labelledby="quick-stats">
+          <h3 id="quick-stats">Quick facts</h3>
+          <p class="muted" style="margin:0 0 12px">A few starter details you can change:</p>
+          <ul class="muted" style="padding-left:18px;margin:0">
+            <li>Responsive grid layout</li>
+            <li>Accessible form labels and ARIA attributes</li>
+            <li>Theme toggle (light/dark)</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="features" aria-labelledby="features-title" style="margin-bottom:18px">
+        <h2 id="features-title" style="margin:8px 0 12px">Features</h2>
+        <div class="grid">
+          <article class="card" aria-labelledby="f1">
+            <h3 id="f1">Responsive grid</h3>
+            <p class="muted">Cards automatically rearrange across screen sizes using CSS grid and `minmax()`.</p>
+          </article>
+
+          <article class="card" aria-labelledby="f2">
+            <h3 id="f2">Accessible forms</h3>
+            <p class="muted">Form elements include labels and attributes for screen readers and keyboard users.</p>
+          </article>
+
+          <article class="card" aria-labelledby="f3">
+            <h3 id="f3">Light & dark</h3>
+            <p class="muted">Toggle between light and dark themes — persisted in `localStorage`.</p>
+          </article>
+
+          <article class="card" aria-labelledby="f4">
+            <h3 id="f4">Customizable</h3>
+            <p class="muted">Colors, radius, and spacing are set as CSS variables for quick tweaks.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" style="margin-bottom:10px">Contact us</h2>
+
+        <div class="grid">
+          <form class="card" id="contactForm" novalidate>
+            <div class="row">
+              <label for="name">Name</label>
+              <input id="name" name="name" required placeholder="Your full name" />
+              <small class="muted" id="nameHelp">Please enter your name.</small>
+            </div>
+
+            <div class="row">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com" />
+              <small class="muted" id="emailHelp">We'll never share your email.</small>
+            </div>
+
+            <div class="row">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="How can we help?"></textarea>
+            </div>
+
+            <div class="flex" style="justify-content:space-between;align-items:center">
+              <div class="muted" id="formStatus" aria-live="polite"></div>
+              <div style="display:flex;gap:10px">
+                <button type="submit" class="btn">Send message</button>
+                <button type="reset" style="padding:8px 14px;border-radius:10px;border:1px solid rgba(20,30,60,0.06);background:transparent;cursor:pointer">Reset</button>
+              </div>
+            </div>
+          </form>
+
+          <aside class="card" aria-labelledby="contact-info">
+            <h3 id="contact-info">Other ways to reach us</h3>
+            <p class="muted" style="margin:0 0 8px">Email: hello@example.com</p>
+            <p class="muted" style="margin:0 0 8px">Address: 123 Main St, Example City</p>
+            <div style="margin-top:14px">
+              <strong>Office hours</strong>
+              <div class="muted">Mon–Fri, 9:00 — 17:00</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Acme Studio · Built with ❤️ · <span class="muted">Simple template</span>
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle + persistence
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('theme');
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+
+      function currentTheme(){ return document.documentElement.getAttribute('data-theme') || 'light' }
+      function setTheme(t){
+        if(t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+        else document.documentElement.removeAttribute('data-theme');
+        btn.setAttribute('aria-pressed', t === 'dark');
+        localStorage.setItem('theme', t);
+      }
+
+      btn.addEventListener('click', ()=>{
+        setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+      });
+
+      // Set initial state of button
+      btn.setAttribute('aria-pressed', currentTheme() === 'dark');
+    })();
+
+    // Simple form handling
+    (function(){
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Basic validation
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+        if(!name || !email || !message){
+          status.textContent = 'Please complete all fields.';
+          status.style.color = 'crimson';
+          return;
+        }
+        // rudimentary email check
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+          status.textContent = 'Please enter a valid email address.';
+          status.style.color = 'crimson';
+          return;
+        }
+
+        // Simulate success (replace with real submission logic)
+        status.textContent = 'Sending…';
+        status.style.color = 'var(--muted)';
+        setTimeout(()=>{
+          status.textContent = 'Thanks! Your message has been sent.';
+          status.style.color = 'green';
+          form.reset();
+        }, 700);
+      });
+    })();
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+
+
